@@ -233,8 +233,8 @@ function migrationDigest(folder) {
 
 function sourceDigest() {
   // All Worker modules currently live in these two directories.
-  return digest([ROOT, join(ROOT, 'monitor')].flatMap(folder => readdirSync(folder).filter(name => name.endsWith('.js')).sort()
-    .map(name => `${folder === ROOT ? '' : 'monitor/'}${name}\n${readFileSync(join(folder, name), 'utf8')}`)).join('\n'));
+  return digest(['src', 'monitor'].flatMap(folder => readdirSync(join(ROOT, folder)).filter(name => name.endsWith('.js')).sort()
+    .map(name => `${folder}/${name}\n${readFileSync(join(ROOT, folder, name), 'utf8')}`)).join('\n'));
 }
 
 async function main() {

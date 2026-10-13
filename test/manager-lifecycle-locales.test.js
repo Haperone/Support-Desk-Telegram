@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MANAGER_LIFECYCLE_COPY } from '../manager-lifecycle-copy.js';
-import { translateManager } from '../manager-language.js';
+import { MANAGER_LIFECYCLE_COPY } from '../src/manager-lifecycle-copy.js';
+import { translateManager } from '../src/manager-language.js';
 
 test('manager lifecycle catalogs cover every locale and preserve ordered template data', () => {
   const placeholders = value => (value.match(/\{value\}/g) || []).length;

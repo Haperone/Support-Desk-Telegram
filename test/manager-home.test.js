@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { claimManagerHome, completeManagerHome, releaseManagerHome } from '../manager-home.js';
+import { claimManagerHome, completeManagerHome, releaseManagerHome } from '../src/manager-home.js';
 
 test('home leases cover concurrent commands, retries, expired claims, and independent operators', async () => {
   const db = new SqliteD1(new URL('../migrations/', import.meta.url));

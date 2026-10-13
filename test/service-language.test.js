@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { registeredConfig } from '../bot-registry.js';
-import { managementBotKey } from '../worker.js';
-import { handleManagerServiceSettings } from '../manager-service-settings.js';
+import { registeredConfig } from '../src/bot-registry.js';
+import { managementBotKey } from '../src/worker.js';
+import { handleManagerServiceSettings } from '../src/manager-service-settings.js';
 
 test('new service defaults to English and manager can switch its persisted language', async () => {
   const config = registeredConfig({ id: 12345, username: 'example_bot' }, 'Example', 'Example');

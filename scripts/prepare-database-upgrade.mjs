@@ -100,5 +100,5 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   if (process.argv.length !== 3) throw new Error("Usage: node scripts/prepare-database-upgrade.mjs support|monitor");
   const result = prepareUpgrade(process.argv[2]);
   const shellQuote = value => `'${value.replaceAll("'", "''")}'`;
-  console.log(`Prepared local upgrade files: ${result.directory}\nNo database commands have been executed.\nReview DATABASE_SETUP.md, then run in PowerShell:\nnpx wrangler d1 migrations apply ${shellQuote(result.database)} --remote --config ${shellQuote(result.config)}`);
+  console.log(`Prepared local upgrade files: ${result.directory}\nNo database commands have been executed.\nReview docs/en/database-upgrade.md, then run in PowerShell:\nnpx wrangler d1 migrations apply ${shellQuote(result.database)} --remote --config ${shellQuote(result.config)}`);
 }

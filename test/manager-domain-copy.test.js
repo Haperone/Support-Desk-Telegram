@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MANAGER_USER_COPY } from '../manager-user-copy.js';
-import { MANAGER_DIAGNOSTICS_COPY } from '../manager-diagnostics-copy.js';
-import { opaqueManagerText, translateManager } from '../manager-language.js';
+import { MANAGER_USER_COPY } from '../src/manager-user-copy.js';
+import { MANAGER_DIAGNOSTICS_COPY } from '../src/manager-diagnostics-copy.js';
+import { opaqueManagerText, translateManager } from '../src/manager-language.js';
 
 for (const [name, rows] of [['users', MANAGER_USER_COPY], ['diagnostics', MANAGER_DIAGNOSTICS_COPY]]) {
   test(`${name} catalog is complete and preserves template values in all four languages`, () => {

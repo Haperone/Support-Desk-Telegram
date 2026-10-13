@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
 import { resolveActiveGroup, registerSupportGroup, listGroupServices, findTopicByGroup,
-  inspectGroupCutover, commitGroupCutover, archiveConversationForNewGroup } from '../service-groups.js';
+  inspectGroupCutover, commitGroupCutover, archiveConversationForNewGroup } from '../src/service-groups.js';
 
 const create = () => new SqliteD1(new URL('../migrations/', import.meta.url));
 const addConversation = (db, bot, user, group, thread) => db.sqlite.prepare(`INSERT INTO conversations

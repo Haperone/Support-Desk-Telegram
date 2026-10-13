@@ -1,5 +1,5 @@
 name = "telegram-private-chatbot"
-main = "entry.js"
+main = "src/entry.js"
 compatibility_date = "2026-09-01"
 
 [observability]
@@ -22,7 +22,7 @@ ALBUM_SETTLE_MS = "3000"
 # Default for webhook/verification, Cron and the linked monitor; General can override it.
 # Select "paid" only after upgrading the Cloudflare account to Workers Paid.
 RECOVERY_D1_PLAN = "free"
-# Initialize or upgrade SUPPORT_DB using DATABASE_SETUP.md before enabling these flags.
+# Initialize or upgrade SUPPORT_DB using docs/en/database-upgrade.md before enabling these flags.
 TELEGRAM_COOLDOWN_ENABLED = "true"
 OPERATIONAL_HEALTH_ENABLED = "true"
 RETENTION_ENABLED = "true"
@@ -37,7 +37,7 @@ BOT_REGISTRY = "[]"
 
 # Create the database first, replace the placeholder, then run:
 #   npx wrangler d1 migrations apply telegram-support --remote
-# Existing databases from before consolidation: follow DATABASE_SETUP.md first.
+# Existing databases from before consolidation: follow docs/en/database-upgrade.md first.
 [[d1_databases]]
 binding = "SUPPORT_DB"
 database_name = "telegram-support"

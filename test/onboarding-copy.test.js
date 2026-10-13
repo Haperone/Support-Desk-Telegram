@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { ONBOARDING_COPY, onboardingText } from '../onboarding-copy.js';
+import { ONBOARDING_COPY, onboardingText } from '../src/onboarding-copy.js';
 
 test('onboarding templates have complete four-language placeholder parity', () => {
   for (const row of ONBOARDING_COPY) {

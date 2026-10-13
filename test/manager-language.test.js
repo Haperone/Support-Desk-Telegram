@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { getManagerLanguage, setManagerLanguage, translateManager } from '../manager-language.js';
+import { getManagerLanguage, setManagerLanguage, translateManager } from '../src/manager-language.js';
 
 function database(initial = null) {
   let row = initial;

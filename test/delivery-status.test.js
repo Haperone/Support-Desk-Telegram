@@ -5,7 +5,7 @@ import {
   formatOperatorMessageDeliveryStatus,
   getOperatorMessageDeliveryStatus,
   operatorMessageDeliveryRefreshAction,
-} from "../delivery-status.js";
+} from "../src/delivery-status.js";
 
 const migrations = new URL("../migrations/", import.meta.url);
 function fixture() { return new SqliteD1(migrations); }

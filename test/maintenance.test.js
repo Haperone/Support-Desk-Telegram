@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import worker from '../worker.js';
+import worker from '../src/worker.js';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
 
 for (const kind of ['uncertain', 'unknown_actor']) {

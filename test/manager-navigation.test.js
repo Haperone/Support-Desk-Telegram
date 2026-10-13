@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { managerScreenKeyboard } from '../manager-navigation.js';
+import { managerScreenKeyboard } from '../src/manager-navigation.js';
 
 const action = (text, callback_data) => ({ text, callback_data });
 

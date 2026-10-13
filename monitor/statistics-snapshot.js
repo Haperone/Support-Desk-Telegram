@@ -1,6 +1,6 @@
 import { parseConfig } from './worker.js';
 import { resolveMonitorEnvironment, usagePeriod } from './plan.js';
-import { withinStatisticsRangeLimit } from '../statistics-range-limit.js';
+import { withinStatisticsRangeLimit } from '../src/statistics-range-limit.js';
 
 // Internal service RPC: no new HTTP endpoint or Telegram credentials exposed.
 export async function statisticsResourceSnapshot(originalEnv,{start,end,timeZone='UTC'}={},at=new Date()) {

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { formatAccessEvent } from '../user-access-alerts.js';
+import { formatAccessEvent } from '../src/user-access-alerts.js';
 import { formatUsageAlert } from '../monitor/worker.js';
-import { storageChinese, storageEnglish, storageSpanish, storageText } from '../storage-copy.js';
+import { storageChinese, storageEnglish, storageSpanish, storageText } from '../src/storage-copy.js';
 
 test('access alerts render Spanish and Chinese copy without Russian labels', () => {
   const event={kind:'auto_restricted',service:'Soporte',user_id:42,first_name:'Ana',username:'ana',created_at:'2026-09-01T10:00:00Z',deadline:'2026-09-01T11:00:00Z',detail:'4',risk_score:4,queued:2,muted_until:'2026-09-01T11:00:00Z',support_group_id:-1001234567890,thread_id:55};

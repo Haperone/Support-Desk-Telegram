@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createRecoveryDatabase, createWebhookDatabase, resolveInvocationDatabase, RecoveryBudgetExhausted } from "../recovery-budget.js";
+import { createRecoveryDatabase, createWebhookDatabase, resolveInvocationDatabase, RecoveryBudgetExhausted } from "../src/recovery-budget.js";
 
 test("durable plan lookup counts once, follows config until overridden, and freezes each invocation", async () => {
   let row = { plan: null, revision: "initial", billing_day: null };

@@ -5,7 +5,7 @@ import { createMonitorContext, MonitorBudgetExhausted } from "../budget.js";
 import { createCloudflareFetch } from "../api.js";
 import { dispatchIncidents, observeIncident, storageSeverity } from "../incidents.js";
 import { graphQl } from "../worker.js";
-import { retryAfterSeconds, retryDeadline } from "../../http-errors.js";
+import { retryAfterSeconds, retryDeadline } from "../../src/http-errors.js";
 
 const database = () => new SqliteD1(new URL("../migrations/", import.meta.url));
 const start = new Date("2026-09-08T23:45:00Z");

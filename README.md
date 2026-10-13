@@ -142,7 +142,7 @@ Each service supports:
 - Reconnecting the same bot when its credentials are unavailable.
 - Removing a connection after active conversations and unfinished deliveries have been handled. This does not delete the bot in BotFather.
 
-Details: [connecting services and groups](MANAGER_BOT_SETUP_RU.md#подключение-сервиса-и-группы), [reaction checks](REACTIONS_RU.md).
+Details: [connecting services and groups](docs/en/manager-bot.md#add-a-service-and-connect-a-group), [reaction checks](docs/en/reactions.md).
 
 ### Messages, languages, and topic appearance
 
@@ -192,7 +192,7 @@ Enable daily, weekly, and monthly reports in the manager bot's private chat. Cho
 
 Scheduled reports cover the completed day, week, or month.
 
-[Report metrics and schedules](SUPPORT_STATISTICS_RU.md).
+[Report metrics and schedules](docs/en/reports.md).
 
 ## Alerts and system status
 
@@ -212,7 +212,7 @@ In **Manager bot → Alerts**, the primary administrator connects or replaces th
 
 The monitor runs every 15 minutes and distributes checks across services and databases. This does not mean every possible failure will be detected within 15 minutes. Ordinary alerts are triggered by events and thresholds: silence alone does not confirm that the system is healthy.
 
-[Alert setup](MANAGER_BOT_SETUP_RU.md#алерт-бот), [user access events](USER_ACCESS_ALERTS_RU.md), [monitoring capabilities](OPERATIONS_RETENTION_EN.md).
+[Alert setup](docs/en/manager-bot.md#alert-bot), [user access events](docs/en/access-alerts.md), [monitoring capabilities](docs/en/retention.md).
 
 ### Status in the same bot using Telegram Serverless
 
@@ -222,7 +222,7 @@ The screen shows availability of both databases and the main application, check 
 
 If Cloudflare is unavailable, the Telegram part can show the last saved result with its age and a warning. **This is status on request: independent automatic monitoring outside Cloudflare and a backup notification channel are not implemented.** A confirmed send means Telegram accepted the message, not that someone read it. Use the test exchange to check actual conversations.
 
-[Status setup and limitations](alert-serverless/README.md).
+[Status setup and limitations](docs/en/alert-status.md).
 
 ## Delivery and recovery
 
@@ -232,7 +232,7 @@ The manager bot provides **Delivery problems**, detailed message status, and man
 
 An unknown sending outcome is shown separately and is not retried blindly. The operator needs to inspect the conversation, because an automatic retry could duplicate a message. A completed recovery attempt does not mean the entire queue was delivered.
 
-[Using manual recovery](MANUAL_DELIVERY_RU.md).
+[Using manual recovery](docs/en/delivery-recovery.md).
 
 ## Storage and costs
 
@@ -259,7 +259,7 @@ A full reset clears conversation records and queues across all services, includi
 
 The **Free / Workers Paid** selection determines which limits to track. Paid requires a renewal day. The manager's switch does not purchase a Cloudflare subscription: it reflects a plan you have already enabled. Account resources are shared with other projects, so free operation depends on total usage.
 
-[Cleanup and retention](OPERATIONS_RETENTION_EN.md), [plan settings](monitor/README.md#единый-план-freepaid).
+[Cleanup and retention](docs/en/retention.md), [plan settings](docs/en/monitoring.md#free-and-paid).
 
 <a id="free-plan-estimate"></a>
 <details>
@@ -320,24 +320,27 @@ The wizard is for a new installation and resuming its setup. Use the separate up
 
 ## Detailed guides
 
-Several detailed guides are currently in Russian. The setup wizard and bot interfaces support English.
+All guides below are available in English. See the [documentation index](docs/README.md) to switch between English and Russian.
 
 | Task | Guide |
 | --- | --- |
-| Prepare a new installation or resume setup | [First launch](DEPLOY_FIRST_TIME_RU.md) |
-| Configure the manager, groups, operators, and alerts | [Manager bot](MANAGER_BOT_SETUP_RU.md) |
-| Understand reports and schedules | [Support statistics](SUPPORT_STATISTICS_RU.md) |
-| Verify reactions | [Reactions](REACTIONS_RU.md) |
-| Recover delivery | [Manual recovery](MANUAL_DELIVERY_RU.md) |
-| Configure retention and cleanup | [Storage](OPERATIONS_RETENTION_EN.md) |
-| Configure monitoring and the Cloudflare plan | [Monitor](monitor/README.md) |
-| Add status to the alert bot | [Telegram Serverless](alert-serverless/README.md) |
-| Understand protection and moderation alerts | [User access events](USER_ACCESS_ALERTS_RU.md) |
-| Upgrade an existing installation's databases | [Database upgrade](DATABASE_SETUP_EN.md) |
-| Find the earlier setup process without a manager bot | [Archived guide](DEPLOY_LEGACY_RU.md) |
+| Prepare a new installation or resume setup | [First launch](docs/en/first-launch.md) |
+| Configure the manager, groups, operators, and alerts | [Manager bot](docs/en/manager-bot.md) |
+| Understand reports and schedules | [Support statistics](docs/en/reports.md) |
+| Verify reactions | [Reactions](docs/en/reactions.md) |
+| Delete a reply in the topic and customer chat | [Message deletion](docs/en/message-deletion.md) |
+| Recover delivery | [Manual recovery](docs/en/delivery-recovery.md) |
+| Configure retention and cleanup | [Storage](docs/en/retention.md) |
+| Configure monitoring and the Cloudflare plan | [Monitor](docs/en/monitoring.md) |
+| Add status to the alert bot | [Telegram Serverless](docs/en/alert-status.md) |
+| Understand protection and moderation alerts | [User access events](docs/en/access-alerts.md) |
+| Upgrade an existing installation's databases | [Database upgrade](docs/en/database-upgrade.md) |
+| Find the earlier setup process without a manager bot | [Archived guide](docs/en/legacy-setup.md) |
 
 <details>
-<summary><strong>For developers: local checks</strong></summary>
+<summary><strong>For developers: project layout and local checks</strong></summary>
+
+Application modules live in `src/`; the monitor and Telegram Serverless component have their own folders. Setup and maintenance tools are in `scripts/`, tests in `test/`, and guides in `docs/en/` and `docs/ru/`. See the [folder overview](docs/README.md#repository-layout).
 
 To check the project locally, run `npm test`. Tests do not require production tokens or external accounts.
 

@@ -1,13 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { statisticsRange,parseStatisticsDates,nextStatisticsSchedule,scheduledStatisticsRange,statisticsAccess,collectStatistics,recordStatisticsTelegramFailure,localInstant,summarizeStatistics } from '../support-statistics.js';
-import { prepareStatisticsReport,runStatisticsSchedule,handleStatisticsCallback,handleStatisticsText } from '../manager-statistics.js';
-import { STATISTICS_COPY,formatStatistics,richEscape } from '../statistics-copy.js';
-import { createRecoveryDatabase } from '../recovery-budget.js';
+import { statisticsRange,parseStatisticsDates,nextStatisticsSchedule,scheduledStatisticsRange,statisticsAccess,collectStatistics,recordStatisticsTelegramFailure,localInstant,summarizeStatistics } from '../src/support-statistics.js';
+import { prepareStatisticsReport,runStatisticsSchedule,handleStatisticsCallback,handleStatisticsText } from '../src/manager-statistics.js';
+import { STATISTICS_COPY,formatStatistics,richEscape } from '../src/statistics-copy.js';
+import { createRecoveryDatabase } from '../src/recovery-budget.js';
 import { DatabaseSync } from 'node:sqlite';
 import { readdirSync,readFileSync } from 'node:fs';
-import { managementBotKey,parseBotRegistry } from '../worker.js';
+import { managementBotKey,parseBotRegistry } from '../src/worker.js';
 
 const at=new Date('2026-10-03T12:00:00.000Z');
 function fixture(){

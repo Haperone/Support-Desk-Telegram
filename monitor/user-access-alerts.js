@@ -1,7 +1,7 @@
 import { createMonitorContext } from './budget.js';
 import { sendTelegram } from './worker.js';
-import { telegramBotKey } from '../telegram-cooldown.js';
-import { accessEventVisible, formatAccessEvent } from '../user-access-alerts.js';
+import { telegramBotKey } from '../src/telegram-cooldown.js';
+import { accessEventVisible, formatAccessEvent } from '../src/user-access-alerts.js';
 import { readAlertRoute } from './alert-config.js';
 
 export async function flushUserAccessAlerts(rawEnv, {fetchImpl=fetch,now=new Date()}={}) {

@@ -20,7 +20,7 @@ import { messageDeletionWarning } from './message-deletion-copy.js';
 import { managerScreenKeyboard } from './manager-navigation.js';
 import { getManagerLanguage, setManagerLanguage, opaqueManagerText, translateManager, translateManagerScreen } from './manager-language.js';
 import { LANGUAGES, languageOrDefault } from './language.js';
-import { localizedAlertConfigError } from './monitor/alert-config.js';
+import { localizedAlertConfigError } from '../monitor/alert-config.js';
 import { claimManagerHome, completeManagerHome, releaseManagerHome } from './manager-home.js';
 import { handleStatisticsCallback, handleStatisticsText } from './manager-statistics.js';
 import { recordStatisticsTelegramFailure } from './support-statistics.js';

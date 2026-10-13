@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { showManagerDeliveryDiagnostics, showManagerDeliveryProblems, showManagerHelp, showManagerSystemHealth } from '../manager-diagnostics.js';
-import { managementBotKey } from '../worker.js';
-import { translateManagerScreen } from '../manager-language.js';
+import { showManagerDeliveryDiagnostics, showManagerDeliveryProblems, showManagerHelp, showManagerSystemHealth } from '../src/manager-diagnostics.js';
+import { managementBotKey } from '../src/worker.js';
+import { translateManagerScreen } from '../src/manager-language.js';
 
 const service = { id: 'service-a', username: 'service_a_bot', displayName: 'Service A', topicPrefix: 'A',
   tokenBinding: 'SERVICE_TOKEN', webhookSecretBinding: 'SERVICE_SECRET', enabled: true };

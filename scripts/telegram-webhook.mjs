@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { BOT_UPDATES } from '../telegram-updates.js';
+import { BOT_UPDATES } from '../src/telegram-updates.js';
 import { hiddenToken, request, SetupError } from './telegram-setup.mjs';
 
 export function readWebhookConfig(text, botId) {

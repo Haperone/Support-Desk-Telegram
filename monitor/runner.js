@@ -4,7 +4,7 @@ import { collectStorage, inspectStorageEmergency } from "./storage.js";
 import { dispatchIncidents, observeIncident } from "./incidents.js";
 import { resolveMonitorEnvironment } from "./plan.js";
 import { runMonitor, sendTelegram } from "./worker.js";
-import { telegramBotKey } from "../telegram-cooldown.js";
+import { telegramBotKey } from "../src/telegram-cooldown.js";
 import { collectRuntime } from "./runtime-health.js";
 import { collectDeliveryHealth } from "./delivery-health.js";
 import { readAlertRoute } from './alert-config.js';

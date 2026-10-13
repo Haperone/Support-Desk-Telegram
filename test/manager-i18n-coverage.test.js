@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { MANAGER_TRANSLATIONS, opaqueManagerText, translateManager, translateManagerScreen } from '../manager-language.js';
+import { MANAGER_TRANSLATIONS, opaqueManagerText, translateManager, translateManagerScreen } from '../src/manager-language.js';
 
 const cyrillic = /[А-Яа-яЁё]/u;
 

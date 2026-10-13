@@ -1,10 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { requestTelegram } from "../telegram-response.js";
-import { recordTelegramCooldown, telegramBotKey, deferredTelegramResult } from "../telegram-cooldown.js";
-import { resolveInvocationDatabase } from "../recovery-budget.js";
+import { requestTelegram } from "../src/telegram-response.js";
+import { recordTelegramCooldown, telegramBotKey, deferredTelegramResult } from "../src/telegram-cooldown.js";
+import { resolveInvocationDatabase } from "../src/recovery-budget.js";
 import { SqliteD1 } from "./helpers/sqlite-d1.js";
-import { prepareTelegramCleanup, settleTelegramCleanup, isConfirmedMessageDeletion } from '../telegram-cleanup.js';
+import { prepareTelegramCleanup, settleTelegramCleanup, isConfirmedMessageDeletion } from '../src/telegram-cleanup.js';
 
 test('idempotent message cleanup survives a 429 and restart without replaying business delivery', async () => {
   const raw = new SqliteD1(new URL('../migrations/', import.meta.url));

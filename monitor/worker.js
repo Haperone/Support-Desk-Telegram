@@ -1,9 +1,9 @@
-import { billingDay, normalizePlan } from "../cloudflare-plan.js";
+import { billingDay, normalizePlan } from "../src/cloudflare-plan.js";
 import { billingDaySetupLocation, resolveMonitorEnvironment, usagePeriod } from "./plan.js";
-import { GraphQlRequestError, retryAfterSeconds } from "../http-errors.js";
+import { GraphQlRequestError, retryAfterSeconds } from "../src/http-errors.js";
 import { createMonitorContext, MonitorBudgetExhausted } from "./budget.js";
-import { requestTelegram } from "../telegram-response.js";
-import { deferredTelegramResult, recordTelegramCooldown } from "../telegram-cooldown.js";
+import { requestTelegram } from "../src/telegram-response.js";
+import { deferredTelegramResult, recordTelegramCooldown } from "../src/telegram-cooldown.js";
 import { readAlertRoute, sendAlert } from './alert-config.js';
 import { recordAlertDelivery } from './status-telemetry.js';
 

@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
 import { SqliteD1 } from "./helpers/sqlite-d1.js";
-import { resolveInvocationDatabase } from "../recovery-budget.js";
-import { RESET_TABLES } from "../storage-reset.js";
+import { resolveInvocationDatabase } from "../src/recovery-budget.js";
+import { RESET_TABLES } from "../src/storage-reset.js";
 
 const baseline = readFileSync(new URL("../migrations/0023_initial_schema.sql", import.meta.url), "utf8");
 const upgrade = readFileSync(new URL("../migrations/0024_bot_messages_and_navigation.sql", import.meta.url), "utf8");

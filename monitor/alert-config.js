@@ -1,4 +1,4 @@
-import { requestTelegram } from '../telegram-response.js';
+import { requestTelegram } from '../src/telegram-response.js';
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder();

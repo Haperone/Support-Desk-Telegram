@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { createControlPlaneWorker } from "../control-plane-worker.js";
+import { createControlPlaneWorker } from "../src/control-plane-worker.js";
 
 function registry() {
   return JSON.stringify([

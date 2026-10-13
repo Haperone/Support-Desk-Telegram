@@ -1,8 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { SqliteD1 } from "./helpers/sqlite-d1.js";
-import { guardStorageGeneration } from "../storage-generation.js";
-import { resolveInvocationDatabase } from "../recovery-budget.js";
+import { guardStorageGeneration } from "../src/storage-generation.js";
+import { resolveInvocationDatabase } from "../src/recovery-budget.js";
 
 test("old invocations cannot read, rebuild or alter conversation data after the reset generation changes", async () => {
   const raw = new SqliteD1(new URL("../migrations/", import.meta.url));

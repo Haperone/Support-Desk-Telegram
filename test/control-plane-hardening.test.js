@@ -1,16 +1,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { DatabaseSync } from "node:sqlite";
-import { managementBotKey } from "../worker.js";
-import { createWebhookDatabase } from "../recovery-budget.js";
+import { managementBotKey } from "../src/worker.js";
+import { createWebhookDatabase } from "../src/recovery-budget.js";
 import { stalledJsonResponse } from "./helpers/stalled-response.js";
 import {
   claimGeneralControl,
   createControlPlaneWorker,
   createHardenedDatabase,
   stablePendingNonce,
-} from "../control-plane-worker.js";
-import { CONTROL_PLANE_CONTEXT } from "../control-plane-contract.js";
+} from "../src/control-plane-worker.js";
+import { CONTROL_PLANE_CONTEXT } from "../src/control-plane-contract.js";
 
 class D1Statement {
   constructor(db, sql, params = []) { this.db = db; this.sql = sql; this.params = params; }

@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
-import { createControlPlaneWorker } from "../control-plane-worker.js";
+import { createControlPlaneWorker } from "../src/control-plane-worker.js";
 
 class D1Statement {
   constructor(db, sql, params = []) { this.db = db; this.sql = sql; this.params = params; }

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { renderWorkspace, workspaceBack, withNavigation, workspaceParent } from '../operator-workspace.js';
-import { requestTelegram } from '../telegram-response.js';
+import { renderWorkspace, workspaceBack, withNavigation, workspaceParent } from '../src/operator-workspace.js';
+import { requestTelegram } from '../src/telegram-response.js';
 
 for (const status of [429, 503]) test(`workspace respects normalized Telegram ${status} without sending a replacement`, async () => {
   const db = new SqliteD1(new URL('../migrations/', import.meta.url)), calls = [];

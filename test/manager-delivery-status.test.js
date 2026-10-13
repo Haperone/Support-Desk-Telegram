@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { createManagerWorker, publishManagerManualDelivery } from '../manager-bot.js';
-import { beginManualDelivery, deliverySnapshot, manualDeliveryStatus, MANAGER_DELIVERY_UI } from '../manual-delivery.js';
-import { managementBotKey } from '../worker.js';
+import { createManagerWorker, publishManagerManualDelivery } from '../src/manager-bot.js';
+import { beginManualDelivery, deliverySnapshot, manualDeliveryStatus, MANAGER_DELIVERY_UI } from '../src/manual-delivery.js';
+import { managementBotKey } from '../src/worker.js';
 
 const groupId = -1001234567890;
 const threadId = 88;

@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_LANGUAGE, LANGUAGES, languageOrDefault } from '../language.js';
-import { workAge, workStateLabel, assigneeLabel } from '../conversation-work.js';
-import { reactionDirectionLabel, reactionSummary } from '../reaction-checks.js';
-import { manualDeliveryText } from '../manual-delivery.js';
-import { withNavigation } from '../operator-workspace.js';
+import { DEFAULT_LANGUAGE, LANGUAGES, languageOrDefault } from '../src/language.js';
+import { workAge, workStateLabel, assigneeLabel } from '../src/conversation-work.js';
+import { reactionDirectionLabel, reactionSummary } from '../src/reaction-checks.js';
+import { manualDeliveryText } from '../src/manual-delivery.js';
+import { withNavigation } from '../src/operator-workspace.js';
 
 test('all supported languages render core work, reaction and recovery labels', () => {
   assert.equal(DEFAULT_LANGUAGE, 'en');

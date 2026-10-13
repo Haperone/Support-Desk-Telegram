@@ -8,7 +8,7 @@ import {
   markExpiredClaimsUncertain, markNoticeFailed, dispatchNextNotice,
   markSentNoticeLinksForRoute, syncNextSentNoticeLink,
   terminalNoticePruneStatement,
-} from '../service-notifications.js';
+} from '../src/service-notifications.js';
 
 const base='2026-09-26T10:00:00.000Z';
 const at=minutes=>new Date(Date.parse(base)+minutes*60000);

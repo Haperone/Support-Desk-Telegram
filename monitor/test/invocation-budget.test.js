@@ -5,7 +5,7 @@ import { DatabaseSync } from "node:sqlite";
 import { runMonitor } from "../worker.js";
 import { switchAlertRoute } from "../alert-config.js";
 import { handleD1TelemetryHealth } from "../entry.js";
-import { readCloudflarePlan } from "../../cloudflare-plan.js";
+import { readCloudflarePlan } from "../../src/cloudflare-plan.js";
 
 class Statement {
   constructor(db, sql, params = []) { this.db = db; this.sql = sql; this.params = params; }

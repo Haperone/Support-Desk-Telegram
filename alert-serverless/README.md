@@ -6,15 +6,15 @@ Only configured administrators can read the status. Commands addressed to anothe
 
 ## Recommended setup
 
-Run `npm run setup` from the repository root and follow the optional Telegram Serverless stage. It creates a separate, ignored `.bootstrap-serverless/` workspace, generates the administrator and group settings, helps you sign in using CLI Access from BotFather, and checks the bot before deployment. Read the [first-launch guide](../DEPLOY_FIRST_TIME_RU.md) for details.
+Run `npm run setup` from the repository root and follow the optional Telegram Serverless stage. It creates a separate, ignored `.bootstrap-serverless/` workspace, generates the administrator and group settings, helps you sign in using CLI Access from BotFather, and checks the bot before deployment. Read the [first-launch guide](../docs/en/first-launch.md) for details.
 
 The alert bot must be separate from the manager bot. Use the same alert bot for Cloudflare notifications and the Telegram status interface. Each installation chooses its own bot names, IDs, groups, and timezone.
 
 ## Manual setup
 
-1. Copy this directory to a separate local workspace. Keep CLI state and installation settings out of public Git history.
-2. Set your administrator IDs, alert bot ID and username, permitted group IDs, timezone, and language in `tgcloud/lib/settings.js`. Supported languages are `en`, `ru`, `es`, and `zh`.
-3. Enable Serverless in BotFather for the alert bot and run `npm run cli -- login` in the copied workspace. Enter its CLI Access token when prompted.
+1. Copy the whole repository to a separate local workspace. Keep CLI state and installation settings out of public Git history.
+2. Set your administrator IDs, alert bot ID and username, permitted group IDs, timezone, and language in `alert-serverless/tgcloud/lib/settings.js` (relative to the repository root). Supported languages are `en`, `ru`, `es`, and `zh`.
+3. Enable Serverless in BotFather for the alert bot and run `npm run cli -- login` from its `alert-serverless/` directory. Enter its CLI Access token when prompted.
 4. Inspect the existing application with `npm run cli -- status`. Preserve any existing modules; use targeted pushes.
 5. From the repository root, run `pwsh -NoProfile -File scripts/configure-alert-status.ps1 -CloudflareOnly`. The script creates an encrypted local backup and keeps an existing status key.
 6. Deploy your configured monitor using its installation-specific Wrangler configuration. For the generated setup, use the corresponding `monitor/wrangler.bootstrap.NAME.toml`; manual installations use their own `monitor/wrangler.toml`.

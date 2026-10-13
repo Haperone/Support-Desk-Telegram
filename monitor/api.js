@@ -1,4 +1,4 @@
-import { GraphQlRequestError, retryAfterSeconds, retryDeadline } from "../http-errors.js";
+import { GraphQlRequestError, retryAfterSeconds, retryDeadline } from "../src/http-errors.js";
 
 export function createCloudflareFetch(env, fetchImpl, now = new Date()) {
   const scope = `cloudflare:${env.CF_ACCOUNT_ID}`;

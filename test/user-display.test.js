@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { customerName } from '../user-display.js';
+import { customerName } from '../src/user-display.js';
 
 test('customer display falls back from placeholder names to username or ID', () => {
   assert.equal(customerName({ first_name: '-', username: 'example_customer', user_id: 101 }), '@example_customer');

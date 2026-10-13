@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { managerCommandList } from '../worker.js';
+import { managerCommandList } from '../src/worker.js';
 
 test('manager command descriptions follow personal language and access', () => {
   const descriptions = new Map();

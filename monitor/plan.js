@@ -1,4 +1,4 @@
-import { billingDay, normalizePlan } from "../cloudflare-plan.js";
+import { billingDay, normalizePlan } from "../src/cloudflare-plan.js";
 
 export function billingDaySetupLocation(env) {
   return env.SUPPORT_PLAN

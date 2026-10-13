@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { auditActionLabel, formatInfo } from '../worker.js';
+import { auditActionLabel, formatInfo } from '../src/worker.js';
 
 test('audit actions use their own locale catalog across all supported locales', () => {
   assert.equal(auditActionLabel({ locale: 'ru' }, 'attack_control_auto'), 'Защита возвращена в AUTO');

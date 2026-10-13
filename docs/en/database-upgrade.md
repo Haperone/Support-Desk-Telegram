@@ -1,5 +1,7 @@
 # Database setup and upgrade
 
+[Documentation](../README.md) · [Русский](../ru/database-upgrade.md)
+
 Fresh installations apply a baseline followed by subsequent updates:
 
 - Support: `migrations/0023_initial_schema.sql`.
@@ -28,7 +30,7 @@ Wrangler applies only pending files: `0023` through `0056` for fresh support dat
 
 ## Databases already using baseline 0023
 
-Apply pending support migrations `0024` through `0056` using the normal config before deploying the new support Worker. Already applied files are skipped. Existing conversations and settings are preserved; already open conversations do not receive a retroactive auto-reply. Per-bot welcomes and auto-replies start empty and disabled. Set the `BOT_REGISTRY_KEY` secret once, then deploy the support Worker. Apply any pending monitor migration before deploying the monitor. For the current manager setup, see [MANAGER_BOT_SETUP_RU.md](MANAGER_BOT_SETUP_RU.md). If 0029 is already installed, keep its existing registry key.
+Apply pending support migrations `0024` through `0056` using the normal config before deploying the new support Worker. Already applied files are skipped. Existing conversations and settings are preserved; already open conversations do not receive a retroactive auto-reply. Per-bot welcomes and auto-replies start empty and disabled. Set the `BOT_REGISTRY_KEY` secret once, then deploy the support Worker. Apply any pending monitor migration before deploying the monitor. For the current manager setup, see [Manager bot](manager-bot.md). If 0029 is already installed, keep its existing registry key.
 
 ## Existing databases with historical migrations
 
@@ -61,7 +63,7 @@ Do not replay the fresh CREATE script on an existing database or clear `d1_migra
    npx wrangler d1 migrations list support-monitor --remote --config monitor/wrangler.toml
    ```
 
-   Apply any later pending migrations with the normal config before following the [rollout guide](OPERATIONS_RETENTION_EN.md) to deploy and resume processing.
+   Apply any later pending migrations with the normal config before following the [rollout guide](retention.md) to deploy and resume processing.
 
 After interruption, fix the cause and repeat the same generated command; completed steps are skipped. Missing or divergent migration journals and incompatible schemas are rejected. Do not bypass validation by changing the journal. Databases imported manually without a journal need an individual comparison; the automatic transition leaves them alone. Fresh baseline databases do not need this transition.
 

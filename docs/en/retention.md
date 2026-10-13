@@ -1,6 +1,8 @@
 # Operational monitoring and retention
 
-Validate live Cloudflare and Telegram behavior before relying on a new deployment. Do not delete production data merely to test the interface. The detailed Russian runbook is [OPERATIONS_RETENTION.md](OPERATIONS_RETENTION.md).
+[Documentation](../README.md) · [Русский](../ru/retention.md)
+
+Validate live Cloudflare and Telegram behavior before relying on a new deployment. Do not delete production data merely to test the interface. For alert collection and configuration, see [Monitoring](monitoring.md).
 
 ## Administrator controls
 
@@ -10,7 +12,7 @@ Defaults: 180 inactive days, seven days after confirming a deleted topic, at mos
 
 Deleting a topic in Telegram does not reliably inform the bot. Confirm it manually in its storage card. An HTTP/Telegram error is not proof that a topic was deleted. There are no mass probe messages. Closed topics still exist. Manual deleted-topic cleanup may remove mappings of any age and that conversation's routing record. Telegram history remains; cleaned old replies/reactions lose their association.
 
-Full reset previews the effects and counts, then requires a fresh button and the exact phrase `УДАЛИТЬ ВСЕ ОБРАЩЕНИЯ` in the manager bot's private chat within five minutes. It removes all services' conversations, mappings, old queued messages including undelivered ones, delivery/verification state and old cleanup proposals. Settings, bans, trust, restrictions, operators, monitor state, minimal audit and update deduplication remain. New contacts create new Telegram topics; existing Telegram history remains.
+Full reset previews the effects and counts, then requires a fresh button and the exact phrase shown by the interface (`DELETE ALL CONVERSATIONS` in English) in the manager bot's private chat within five minutes. It removes all services' conversations, mappings, old queued messages including undelivered ones, delivery/verification state and old cleanup proposals. Settings, bans, trust, restrictions, operators, monitor state, minimal audit and update deduplication remain. New contacts create new Telegram topics; existing Telegram history remains.
 
 A generation fence blocks old invocations from writing results after reset starts. Outstanding old updates are retired rather than replayed. Reset waits two minutes, then uses batches of up to 1000 rows. New webhooks receive 503 until completion or confirmed cancellation of the remaining work. Pause also pauses intake. Cancellation preserves what has not yet been deleted; it does not restore deleted data. Telegram retains pending updates for no more than 24 hours, so long pauses or exhausted daily D1 quota can cause loss upstream. If a full D1 prevents the ordinary screen from opening, the primary administrator can send `/storage emergency` to the manager bot's private chat; that screen bypasses session writes and offers only global rules and full-reset controls. A 16 KiB preallocated control reserve supports emergency confirmation; this is locally tested with a full SQLite file, not a guarantee of cloud availability. [Telegram updates](https://core.telegram.org/bots/api#getting-updates).
 
@@ -25,8 +27,8 @@ Telegram HTTP/JSON 429 persists the full retry deadline per bot; unrelated bots 
 ## Rollout
 
 1. Back up production D1 and verify recovery. Replace configuration placeholders and provision secrets.
-2. Follow [database setup](DATABASE_SETUP_EN.md): apply one baseline per fresh database, or perform the one-time upgrade for existing databases.
-3. Deploy support first **without its new `STORAGE_MONITOR` binding**, exposing `SupportHealth`. Deploy monitor using `service-entry.js` with `SUPPORT_PLAN` and `SUPPORT_HEALTH`, exposing `StorageHealth`. Then restore support's `STORAGE_MONITOR` binding and redeploy support. This avoids a circular first-deployment dependency.
+2. Follow [database setup](database-upgrade.md): apply one baseline per fresh database, or perform the one-time upgrade for existing databases.
+3. For a first deployment, follow [First launch](first-launch.md): temporarily omit all three main Worker bindings (`STORAGE_MONITOR`, `USER_ACCESS_ALERTS`, `ALERT_SETTINGS`), deploy support through `src/entry.js`, deploy the monitor through `monitor/service-entry.js`, then restore those bindings and redeploy support. This avoids a circular first-deployment dependency.
 4. Enable the feature flags shown in the example configs after migrations. Keep `STORAGE_GUARD_ENABLED=true` even when retention features are paused.
 5. Grant D1 Read to `CF_D1_READ_TOKEN`, or to `CF_ANALYTICS_TOKEN`. Current capacity uses REST `file_size`, not the historical maximum GraphQL storage value. [D1 API](https://developers.cloudflare.com/api/resources/d1/subresources/database/methods/get/), [limits](https://developers.cloudflare.com/d1/platform/limits/), [pricing](https://developers.cloudflare.com/d1/platform/pricing/).
 6. Leave `MONITOR_RUNTIME_ENABLED=false` until the live account's GraphQL fields, buckets and CPU units are checked. Set `RUNTIME_CPU_UNIT` and, on Paid, actual per-script `RUNTIME_CPU_LIMITS_MS`; P90 has a schema-only P99 fallback. [Workers metrics](https://developers.cloudflare.com/analytics/graphql-api/tutorials/querying-workers-metrics/).

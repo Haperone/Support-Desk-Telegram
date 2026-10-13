@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { workQueue, workCounts, tomorrowMorning, assigneeLabel } from '../conversation-work.js';
+import { workQueue, workCounts, tomorrowMorning, assigneeLabel } from '../src/conversation-work.js';
 
 const database=()=>new SqliteD1(new URL('../migrations/',import.meta.url));
 function attempt(db,direction,id,source,started=source) {

@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { managementBotKey } from '../worker.js';
-import { showManagerAudit } from '../manager-audit.js';
-import { showManagerDeliveryProblems, showManagerReadiness, showManagerSystemHealth } from '../manager-diagnostics.js';
-import { translateManagerScreen } from '../manager-language.js';
+import { managementBotKey } from '../src/worker.js';
+import { showManagerAudit } from '../src/manager-audit.js';
+import { showManagerDeliveryProblems, showManagerReadiness, showManagerSystemHealth } from '../src/manager-diagnostics.js';
+import { translateManagerScreen } from '../src/manager-language.js';
 
 const service = { id: 'service-a', username: 'service_a_bot', displayName: 'Service A', topicPrefix: 'A',
   tokenBinding: 'SERVICE_TOKEN', webhookSecretBinding: 'SERVICE_SECRET', enabled: true };

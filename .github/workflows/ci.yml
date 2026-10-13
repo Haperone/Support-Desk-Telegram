@@ -31,6 +31,8 @@ jobs:
           fi
       - name: Validate database schemas
         run: node scripts/validate-migrations.mjs
+      - name: Validate documentation links and languages
+        run: node scripts/validate-docs.mjs
       - name: Apply migrations with local D1
         run: node scripts/validate-d1-migrations.mjs
       - name: Run full test suite

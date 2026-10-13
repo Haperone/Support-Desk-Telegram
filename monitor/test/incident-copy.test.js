@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { MONITOR_COPY, monitorLocale, monitorText } from "../incident-copy.js";
-import { translateManager } from '../../manager-language.js';
+import { translateManager } from '../../src/manager-language.js';
 
 test("monitor incident copy has complete four-locale catalogs and matching placeholders", () => {
   const keys = Object.keys(MONITOR_COPY.en).sort();

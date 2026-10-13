@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { supportHealthSnapshot, recordOperationalSignal } from '../support-health.js';
-import { resolveInvocationDatabase } from '../recovery-budget.js';
+import { supportHealthSnapshot, recordOperationalSignal } from '../src/support-health.js';
+import { resolveInvocationDatabase } from '../src/recovery-budget.js';
 const now = new Date('2026-09-09T12:00:00.000Z');
 const old = '2026-09-09T11:00:00.000Z';
 const environment = (db) => ({ SUPPORT_DB: db, SUPPORT_GROUP_ID: '-100', BOT_REGISTRY: JSON.stringify([{ id: 'bot', tokenBinding: 'TOKEN', enabled: true }]), TOKEN: '123:secret', PUBLIC_BASE_URL: 'https://support.test' });

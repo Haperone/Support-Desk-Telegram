@@ -4,14 +4,14 @@ const recoveryQueryScope = new AsyncLocalStorage();
 import assert from "node:assert/strict";
 import { readFileSync, readdirSync } from "node:fs";
 import { DatabaseSync } from "node:sqlite";
-import { createControlPlaneWorker } from "../control-plane-worker.js";
-import { createRegistrationWorker } from '../bot-onboarding.js';
-import { registeredConfig, sealCredentials, withBotRegistry } from '../bot-registry.js';
-import { registerSupportGroup, commitGroupCutover } from '../service-groups.js';
+import { createControlPlaneWorker } from "../src/control-plane-worker.js";
+import { createRegistrationWorker } from '../src/bot-onboarding.js';
+import { registeredConfig, sealCredentials, withBotRegistry } from '../src/bot-registry.js';
+import { registerSupportGroup, commitGroupCutover } from '../src/service-groups.js';
 import { stalledJsonResponse } from "./helpers/stalled-response.js";
 import { assertD1CompoundSelectLimit } from './helpers/d1-sql-limits.js';
-import { createWebhookDatabase, resolveInvocationDatabase } from "../recovery-budget.js";
-import { beginManualDelivery, executeManualDelivery, inspectManualDelivery, manualDeliveryStatus, stepManualDelivery, manualDeliveryText } from '../manual-delivery.js';
+import { createWebhookDatabase, resolveInvocationDatabase } from "../src/recovery-budget.js";
+import { beginManualDelivery, executeManualDelivery, inspectManualDelivery, manualDeliveryStatus, stepManualDelivery, manualDeliveryText } from '../src/manual-delivery.js';
 import worker, {
   extractAlbumMedia,
   normalizeForAbuseText,
@@ -32,7 +32,7 @@ import worker, {
   runManualDeliveryTarget,
   syncVerificationNotice,
   supportCommandList,
-} from "../worker.js";
+} from "../src/worker.js";
 
 test('support command descriptions include Spanish and Simplified Chinese and default to English', () => {
   const locales = ['ru', 'en', 'es', 'zh'].map(locale => supportCommandList(locale).find(command => command.command === 'help').description);
@@ -6598,7 +6598,7 @@ test("Cloudflare plan: primary General panel persists Paid, billing day, Free an
     await ui.click(b => b.callback_data.includes(":choose:auto:"));
     await ui.click(b => b.callback_data.includes(":set:auto:"));
     assert.equal(db.get("SELECT plan FROM cloudflare_plan_settings").plan, null);
-    const { readCloudflarePlan } = await import("../cloudflare-plan.js?fresh-plan-test");
+    const { readCloudflarePlan } = await import("../src/cloudflare-plan.js?fresh-plan-test");
     const resolved = await readCloudflarePlan(db, env);
     assert.equal(resolved.plan, "paid");
     assert.equal(resolved.source, "config");
@@ -6777,7 +6777,7 @@ test('topic style: Russian UI and settings survive a fresh Worker module', async
     await styleClick(env,calls,60502,b=>b.text==='Цвет');
     await styleClick(env,calls,60503,b=>b.callback_data.endsWith(':9367192'));
     assert.match(calls.at(-1).body.text,/Зелёный/);
-    const fresh = (await import('../worker.js?topic-style-cold-start')).default;
+    const fresh = (await import('../src/worker.js?topic-style-cold-start')).default;
     assert.equal((await fresh.fetch(webhookRequest('folder-links','secret-a',privateUpdate(60504,60504)),env)).status,200);
     assert.equal(calls.find(c=>c.method==='createForumTopic').body.icon_color,9367192);
     assert.equal(db.get("SELECT COUNT(*) AS n FROM operator_audit WHERE action='topic_style_color'").n,1);
@@ -7690,7 +7690,7 @@ test('workspace: delivery switches preserve text and suppress welcome and auto-r
 });
 
 test('workspace: work queue uses confirmed answers, survives topic closure, and rejects stale assignments',async()=>{
-  const {changeWork,workQueue}=await import('../conversation-work.js');
+  const {changeWork,workQueue}=await import('../src/conversation-work.js');
   await withFixture(null,async({env,db})=>{
     const send=u=>worker.fetch(webhookRequest('folder-links','secret-a',u),env);
     await send(privateUpdate(975000,70005));

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { createReactionChecks, reactionSummary, REACTION_EXTRA_TRANSLATIONS } from '../reaction-checks.js';
-import { serviceChecks, SERVICE_CHECK_TRANSLATIONS } from '../service-checks.js';
+import { createReactionChecks, reactionSummary, REACTION_EXTRA_TRANSLATIONS } from '../src/reaction-checks.js';
+import { serviceChecks, SERVICE_CHECK_TRANSLATIONS } from '../src/service-checks.js';
 
 const locales=['en','ru','es','zh'];
 const hasRussian=text=>/[А-Яа-яЁё]/.test(text);

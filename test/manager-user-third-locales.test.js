@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { managementBotKey } from '../worker.js';
-import { translateManagerScreen } from '../manager-language.js';
+import { managementBotKey } from '../src/worker.js';
+import { translateManagerScreen } from '../src/manager-language.js';
 import { showManagerUserHome, showManagerUserList, showManagerUserSearch, showManagerUserCard,
-  handleManagerUserAction, handleManagerUserText, handleManagerUserSearchText } from '../manager-user-management.js';
+  handleManagerUserAction, handleManagerUserText, handleManagerUserSearchText } from '../src/manager-user-management.js';
 
 const locales = ['en', 'ru', 'es', 'zh'];
 const config = { id: 'service-help', username: 'support_help_bot', displayName: 'Support Help', topicPrefix: 'Help',

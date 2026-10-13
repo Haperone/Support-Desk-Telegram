@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { createRegistrationWorker, handleBotRegistrationUpdate } from '../bot-onboarding.js';
-import { openCredentials, registeredConfig, sealCredentials, withBotRegistry } from '../bot-registry.js';
-import { supportServices } from '../support-health.js';
-import { supportCommandList } from '../worker.js';
-import { RESET_TABLES } from '../storage-reset.js';
+import { createRegistrationWorker, handleBotRegistrationUpdate } from '../src/bot-onboarding.js';
+import { openCredentials, registeredConfig, sealCredentials, withBotRegistry } from '../src/bot-registry.js';
+import { supportServices } from '../src/support-health.js';
+import { supportCommandList } from '../src/worker.js';
+import { RESET_TABLES } from '../src/storage-reset.js';
 
 const MAIN = '123456:' + 'M'.repeat(35);
 const NEW = '987654:' + 'N'.repeat(35);

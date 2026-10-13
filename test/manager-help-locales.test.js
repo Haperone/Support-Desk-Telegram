@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { showManagerHelp } from '../manager-diagnostics.js';
-import { translateManagerScreen } from '../manager-language.js';
+import { showManagerHelp } from '../src/manager-diagnostics.js';
+import { translateManagerScreen } from '../src/manager-language.js';
 
 test('every manager help section and role renders complete four-language copy', async () => {
   for (const locale of ['en', 'ru', 'es', 'zh']) {

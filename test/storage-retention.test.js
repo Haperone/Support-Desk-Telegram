@@ -1,12 +1,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { resolveInvocationDatabase } from '../recovery-budget.js';
-import { createStorageJob, confirmStorageJob, runStorageJob, touchStorageTopic, storageMaintenance } from '../storage-retention.js';
-import { previewFullReset, armFullReset, beginFullReset, runFullReset, RESET_TABLES } from '../storage-reset.js';
-import { handleStorageUpdate } from '../storage-ui.js';
-import { storageText, storageEnglish } from '../storage-copy.js';
-import { requestTelegram } from '../telegram-response.js';
+import { resolveInvocationDatabase } from '../src/recovery-budget.js';
+import { createStorageJob, confirmStorageJob, runStorageJob, touchStorageTopic, storageMaintenance } from '../src/storage-retention.js';
+import { previewFullReset, armFullReset, beginFullReset, runFullReset, RESET_TABLES } from '../src/storage-reset.js';
+import { handleStorageUpdate } from '../src/storage-ui.js';
+import { storageText, storageEnglish } from '../src/storage-copy.js';
+import { requestTelegram } from '../src/telegram-response.js';
 
 const NOW = new Date('2026-09-09T12:00:00.000Z');
 const OLD = '2025-09-09T12:00:00.000Z';

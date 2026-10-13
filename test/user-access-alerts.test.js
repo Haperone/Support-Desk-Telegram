@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { claimAccessEvents,startAccessEvents,completeAccessEvents,formatAccessEvent,accessEventVisible } from '../user-access-alerts.js';
+import { claimAccessEvents,startAccessEvents,completeAccessEvents,formatAccessEvent,accessEventVisible } from '../src/user-access-alerts.js';
 import { flushUserAccessAlerts } from '../monitor/user-access-alerts.js';
 
 function fixture() {

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { supportHelp } from '../support-help.js';
+import { supportHelp } from '../src/support-help.js';
 
 test('support help renders all topics in Spanish and Simplified Chinese', () => {
   for (const locale of ['es', 'zh']) {

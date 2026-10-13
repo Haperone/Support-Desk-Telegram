@@ -1,15 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { SqliteD1 } from './helpers/sqlite-d1.js';
-import { createManagerWorker } from '../manager-bot.js';
-import { commitGroupCutover, registerSupportGroup } from '../service-groups.js';
-import { managementBotKey } from '../worker.js';
-import { createReactionChecks } from '../reaction-checks.js';
-import { registeredConfig, sealCredentials } from '../bot-registry.js';
+import { createManagerWorker } from '../src/manager-bot.js';
+import { commitGroupCutover, registerSupportGroup } from '../src/service-groups.js';
+import { managementBotKey } from '../src/worker.js';
+import { createReactionChecks } from '../src/reaction-checks.js';
+import { registeredConfig, sealCredentials } from '../src/bot-registry.js';
 import { ALERT_CONFIG_MESSAGES } from '../monitor/alert-config.js';
-import { STORAGE_RESET_PHRASES } from '../storage-ui.js';
-import { statisticsCopy } from '../statistics-copy.js';
-import { messageDeletionWarning } from '../message-deletion-copy.js';
+import { STORAGE_RESET_PHRASES } from '../src/storage-ui.js';
+import { statisticsCopy } from '../src/statistics-copy.js';
+import { messageDeletionWarning } from '../src/message-deletion-copy.js';
 
 test('statistics is reachable and edits one rich report in every language; custom dates and back navigation remain usable',async()=>{
   for(const locale of ['en','ru','es','zh']){
