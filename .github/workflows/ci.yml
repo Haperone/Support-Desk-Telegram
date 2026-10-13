@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check diff hygiene
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git diff --check "${{ github.event.pull_request.base.sha }}...HEAD"
+          else
+            git diff-tree --check --root -r HEAD
+          fi
+      - name: Validate database schemas
+        run: node scripts/validate-migrations.mjs
+      - name: Apply migrations with local D1
+        run: node scripts/validate-d1-migrations.mjs
+      - name: Run full test suite
+        run: npm test
+      - name: Wrangler dry-run
+        run: node scripts/validate-wrangler.mjs
+      - name: Validate generated installer configs
+        run: node scripts/validate-bootstrap-config.mjs
+
+  windows-installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify installer and encrypted Windows backups
+        run: node --test test/bootstrap-config.test.js test/bootstrap-probe.test.js test/bootstrap-secret.test.js test/bootstrap-state.test.js test/bootstrap-serverless.test.js test/bootstrap-language.test.js
+      - name: Installer help
+        run: node scripts/bootstrap.mjs --help

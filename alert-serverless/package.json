@@ -1,0 +1,9 @@
+{
+  "name": "alert-serverless",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "cli": "npx --yes --package @tgcloud/cli@0.2.0 tgcloud",
+    "test": "node --test test/*.test.js"
+  }
+}

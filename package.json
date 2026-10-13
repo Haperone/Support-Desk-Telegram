@@ -1,0 +1,9 @@
+{
+  "name": "telegram-private-chatbot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "setup": "node scripts/bootstrap.mjs",
+    "test": "node --test test/**/*.test.js monitor/test/**/*.test.js alert-serverless/test/*.test.js"
+  }
+}

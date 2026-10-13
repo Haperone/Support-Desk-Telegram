@@ -1,0 +1,33 @@
+// Four-locale copy for manager user profiles, search, and moderation screens.
+// Values captured by templates are service/user data unless annotated at the
+// template site in manager-language.js.
+export const MANAGER_USER_COPY = [
+  ['Заблокированы: {value} · ограничены: {value}', 'Blocked: {value} · restricted: {value}', 'Bloqueados: {value} · restringidos: {value}', '已封禁：{value} · 受限：{value}'],
+  ['На проверке: {value} · подозрительные: {value}', 'Under review: {value} · flagged: {value}', 'En revisión: {value} · sospechosos: {value}', '待审核：{value} · 可疑：{value}'],
+  ['Доверенные: {value} · недавние: {value}', 'Trusted: {value} · recent: {value}', 'De confianza: {value} · recientes: {value}', '可信：{value} · 最近：{value}'],
+  ['Пользователи · {value}', 'Users · {value}', 'Usuarios · {value}', '用户 · {value}'],
+  ['Все · все сервисы', 'All · all services', 'Todos · todos los servicios', '全部 · 所有服务'],
+  ['🚫 Заблокированные · {value}', '🚫 Blocked · {value}', '🚫 Bloqueados · {value}', '🚫 已封禁 · {value}'],
+  ['⏳ Ограниченные · {value}', '⏳ Restricted · {value}', '⏳ Restringidos · {value}', '⏳ 受限 · {value}'],
+  ['🧩 На проверке · {value}', '🧩 Under review · {value}', '🧩 En revisión · {value}', '🧩 待审核 · {value}'],
+  ['⚠️ Подозрительные · {value}', '⚠️ Flagged · {value}', '⚠️ Sospechosos · {value}', '⚠️ 可疑 · {value}'],
+  ['✅ Доверенные · {value}', '✅ Trusted · {value}', '✅ De confianza · {value}', '✅ 可信 · {value}'],
+  ['🕘 Недавние · {value}', '🕘 Recent · {value}', '🕘 Recientes · {value}', '🕘 最近 · {value}'],
+  ['  без username · {value} · обращение: {value}', '  no username · {value} · conversation: {value}', '  sin username · {value} · conversación: {value}', '  无用户名 · {value} · 会话：{value}'],
+  ['  {value} · {value} · обращение: {value}', '  {value} · {value} · conversation: {value}', '  {value} · {value} · conversación: {value}', '  {value} · {value} · 会话：{value}'],
+  ['Найдено профилей: {value} · страница {value}/{value}', 'Profiles found: {value} · page {value}/{value}', 'Perfiles encontrados: {value} · página {value}/{value}', '找到资料：{value} · 第 {value}/{value} 页'],
+  ['Поиск: {value}\nНайдено профилей: {value}. Выберите пользователя и сервис.', 'Search: {value}\nProfiles found: {value}. Choose a user and service.', 'Buscar: {value}\nPerfiles encontrados: {value}. Elige un usuario y servicio.', '搜索：{value}\n找到资料：{value}。请选择用户和服务。'],
+  ['\nПоказаны первые 20. Уточните поиск по ID или username.', '\nShowing the first 20. Refine your search by ID or username.', '\nSe muestran los primeros 20. Afina la búsqueda por ID o username.', '\n仅显示前 20 条。请按 ID 或 username 缩小搜索范围。'],
+  ['без username', 'no username', 'sin username', '无用户名'],
+  ['автоограничение до', 'auto-restricted until', 'restricción automática hasta', '自动限制至'],
+  ['ограничен до', 'restricted until', 'restringido hasta', '受限至'],
+  ['ожидает проверку', 'awaiting verification', 'pendiente de verificación', '等待验证'],
+  ['ручное ограничение', 'manual restriction', 'restricción manual', '手动限制'],
+  ['автоограничение', 'automatic restriction', 'restricción automática', '自动限制'],
+  ['Блокировка оператором', 'Operator ban', 'Bloqueo del operador', '客服封禁'],
+  ['Требуется CAPTCHA', 'CAPTCHA required', 'Se requiere CAPTCHA', '需要验证码'],
+  ['Действующих блокировок и CAPTCHA нет.', 'No active restrictions or CAPTCHA.', 'No hay restricciones activas ni CAPTCHA.', '没有生效的限制或验证码。'],
+  ['Сервис приостановлен (только просмотр)', 'Service paused (read-only)', 'Servicio pausado (solo lectura)', '服务已暂停（只读）'],
+  ['{value} · {value} · сервис приостановлен (только просмотр)', '{value} · {value} · service paused (read-only)', '{value} · {value} · servicio pausado (solo lectura)', '{value} · {value} · 服务已暂停（只读）'],
+  ['настроено', 'configured', 'configurado', '已配置'],
+];

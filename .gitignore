@@ -1,0 +1,39 @@
+# Local dependencies, cloud CLI sessions, and generated builds.
+node_modules/
+.wrangler/
+.tgcloud/
+.codex/
+.claude/
+dist/
+coverage/
+
+# Credentials, local data, and backups.
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+*.dpapi
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.bak
+backups/
+
+# Installer state and per-installation configuration.
+wrangler.bootstrap.*.toml
+monitor/wrangler.bootstrap.*.toml
+.bootstrap-state-*.json
+.bootstrap-state-*.json.tmp
+.bootstrap-validation-*/
+.bootstrap-serverless/
+.wrangler-ci-*
+
+# Private synchronization metadata, never part of a public commit.
+.opensource-sync.json
+.opensource-sync.lock/
+*.sync-*

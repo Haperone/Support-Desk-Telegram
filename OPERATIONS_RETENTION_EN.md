@@ -1,0 +1,37 @@
+# Operational monitoring and retention
+
+Validate live Cloudflare and Telegram behavior before relying on a new deployment. Do not delete production data merely to test the interface. The detailed Russian runbook is [OPERATIONS_RETENTION.md](OPERATIONS_RETENTION.md).
+
+## Administrator controls
+
+The single primary administrator in `ADMIN_IDS` opens **Storage** in the manager bot's private chat and selects a group for topic review and manual jobs. `/storage` works in that private chat; the group command is removed. Measurements, retention rules, technical cleanup and full reset apply system-wide. A selected set is built by excluding topics from the preview. Historical indexing is incremental.
+
+Defaults: 180 inactive days, seven days after confirming a deleted topic, at most 500 automatically deleted mappings per day on Free. Configure all three with `/storage rules 180 7 500` in the manager bot's private chat after selecting a group. This counts mappings; indexes and control writes also count toward D1 billing. New user/operator/reaction activity, policy changes, protection, ownership/group changes or expired consent invalidate remaining cleanup. Silence never consents. Existing/closed/unknown topics are never automatically deleted. Ordinary cleanup removes at most 100 old mappings per batch. Active work is skipped for review.
+
+Deleting a topic in Telegram does not reliably inform the bot. Confirm it manually in its storage card. An HTTP/Telegram error is not proof that a topic was deleted. There are no mass probe messages. Closed topics still exist. Manual deleted-topic cleanup may remove mappings of any age and that conversation's routing record. Telegram history remains; cleaned old replies/reactions lose their association.
+
+Full reset previews the effects and counts, then requires a fresh button and the exact phrase `УДАЛИТЬ ВСЕ ОБРАЩЕНИЯ` in the manager bot's private chat within five minutes. It removes all services' conversations, mappings, old queued messages including undelivered ones, delivery/verification state and old cleanup proposals. Settings, bans, trust, restrictions, operators, monitor state, minimal audit and update deduplication remain. New contacts create new Telegram topics; existing Telegram history remains.
+
+A generation fence blocks old invocations from writing results after reset starts. Outstanding old updates are retired rather than replayed. Reset waits two minutes, then uses batches of up to 1000 rows. New webhooks receive 503 until completion or confirmed cancellation of the remaining work. Pause also pauses intake. Cancellation preserves what has not yet been deleted; it does not restore deleted data. Telegram retains pending updates for no more than 24 hours, so long pauses or exhausted daily D1 quota can cause loss upstream. If a full D1 prevents the ordinary screen from opening, the primary administrator can send `/storage emergency` to the manager bot's private chat; that screen bypasses session writes and offers only global rules and full-reset controls. A 16 KiB preallocated control reserve supports emergency confirmation; this is locally tested with a full SQLite file, not a guarantee of cloud availability. [Telegram updates](https://core.telegram.org/bots/api#getting-updates).
+
+## Monitoring
+
+The independent monitor reports current D1 storage at 70/85/95%, account totals including unrelated databases, forecasts after seven distinct days, ready/stalled/uncertain delivery queues, Telegram webhook configuration/backlog/errors, sampled application and limiter failures, and optional Workers CPU/resources/exceptions. Paid included storage is separate from physical capacity. Missing measurements never become zero or prove recovery.
+
+Cron runs every 15 minutes, rotating jobs/resources within a shared statement/HTTP/time budget. Detection is not guaranteed within 15 minutes. Up to six databases and one support service are sampled per applicable job. Large inventories may remain partial. Runtime and application signals look back two hours; longer monitoring gaps can miss events. CPU percentiles are evaluated within individual 15-minute buckets, never averaged across buckets. CPU percentages require confirmed units, real limits and sufficient traffic.
+
+Telegram HTTP/JSON 429 persists the full retry deadline per bot; unrelated bots can continue. Idempotent service-message deletion has a durable retry queue. Uncertain business-message delivery is not blindly replayed. Operational signals are a lower bound, capped at 1000 new rows/day, and do not write on every successful delivery. Alert escalation is immediate; repeats are limited to daily; downgrades require two new complete samples at the same lower level. A monitor in the same account cannot guarantee notifications during a total Cloudflare or alert-bot outage.
+
+## Rollout
+
+1. Back up production D1 and verify recovery. Replace configuration placeholders and provision secrets.
+2. Follow [database setup](DATABASE_SETUP_EN.md): apply one baseline per fresh database, or perform the one-time upgrade for existing databases.
+3. Deploy support first **without its new `STORAGE_MONITOR` binding**, exposing `SupportHealth`. Deploy monitor using `service-entry.js` with `SUPPORT_PLAN` and `SUPPORT_HEALTH`, exposing `StorageHealth`. Then restore support's `STORAGE_MONITOR` binding and redeploy support. This avoids a circular first-deployment dependency.
+4. Enable the feature flags shown in the example configs after migrations. Keep `STORAGE_GUARD_ENABLED=true` even when retention features are paused.
+5. Grant D1 Read to `CF_D1_READ_TOKEN`, or to `CF_ANALYTICS_TOKEN`. Current capacity uses REST `file_size`, not the historical maximum GraphQL storage value. [D1 API](https://developers.cloudflare.com/api/resources/d1/subresources/database/methods/get/), [limits](https://developers.cloudflare.com/d1/platform/limits/), [pricing](https://developers.cloudflare.com/d1/platform/pricing/).
+6. Leave `MONITOR_RUNTIME_ENABLED=false` until the live account's GraphQL fields, buckets and CPU units are checked. Set `RUNTIME_CPU_UNIT` and, on Paid, actual per-script `RUNTIME_CPU_LIMITS_MS`; P90 has a schema-only P99 fallback. [Workers metrics](https://developers.cloudflare.com/analytics/graphql-api/tutorials/querying-workers-metrics/).
+7. Verify test messages, replies, albums, reactions, alerts, authorization, expired consent and a test-topic cleanup. Test full reset in a separate database first. Observe several Cron cycles and UTC rollover; measure cloud D1 rows written before/after enabling. Local mocks do not validate account permissions, real alert delivery or cloud cost.
+
+New TTLs: cooldowns seven days after expiry; application signals seven days; service cleanup attempts seven days then completed records 30 days; cleanup previews 15 minutes, confirmed jobs one day and expired job records 30 days; audit 180 days. Topic metadata and singleton controls persist. Monitor raw storage/runtime samples seven days, daily samples 90 days, stale incidents 180 days. Inventory refreshes daily; missing UUIDs are removed after a complete new listing. TTL deletion is bounded and may occur later depending on scheduler capacity. Row deletion does not guarantee immediate physical file shrinkage.
+
+Local checks: `npm test`, `node scripts/validate-migrations.mjs`, `node scripts/validate-wrangler.mjs`. Migration validation includes hidden/generated columns and the D1 100-column limit. Dry-runs do not deploy.

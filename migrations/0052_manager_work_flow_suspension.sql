@@ -1,0 +1,1 @@
+ALTER TABLE manager_work_flows ADD COLUMN suspended INTEGER NOT NULL DEFAULT 0;

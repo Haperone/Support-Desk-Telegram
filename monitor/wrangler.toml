@@ -1,0 +1,58 @@
+name = "telegram-support-usage-monitor"
+main = "service-entry.js"
+compatibility_date = "2026-09-01"
+
+[triggers]
+crons = ["*/15 * * * *"]
+
+[observability]
+enabled = true
+
+[vars]
+MONITOR_LOCALE = "en"
+CF_ACCOUNT_ID = "REPLACE_WITH_CLOUDFLARE_ACCOUNT_ID"
+ALERT_CHAT_ID = ""
+ALERT_THREAD_ID = ""
+ALERT_CONFIG_REQUIRED = "true"
+DISPLAY_TIMEZONE = "UTC"
+LIMIT_WORKER_REQUESTS = "100000"
+LIMIT_D1_ROWS_READ = "5000000"
+LIMIT_D1_ROWS_WRITTEN = "100000"
+MONITOR_FETCH_TIMEOUT_MS = "15000"
+MONITOR_NAMESPACE_CONCURRENCY = "5"
+LIMIT_KV_READS = "100000"
+LIMIT_KV_WRITES = "1000"
+LIMIT_KV_DELETES = "1000"
+LIMIT_KV_LISTS = "1000"
+ALERT_LEVEL_1 = "70"
+ALERT_LEVEL_2 = "85"
+ALERT_LEVEL_3 = "95"
+PREDICTIVE_WARNING_HOURS = "2"
+DAILY_SUMMARY = "false"
+MONITOR_HEALTH_ENABLED = "true"
+# Turn on after checking the account's GraphQL fields and CPU units.
+MONITOR_RUNTIME_ENABLED = "false"
+RUNTIME_SCRIPT_NAMES = '["telegram-private-chatbot","telegram-support-usage-monitor"]'
+RUNTIME_CPU_P90 = "true"
+# RUNTIME_CPU_UNIT = "microseconds"
+# On Paid, configure the actual CPU limit for each script; do not assume 10 ms.
+# RUNTIME_CPU_LIMITS_MS = '{"telegram-private-chatbot":30000,"telegram-support-usage-monitor":30000}'
+DELIVERY_WARNING_SECONDS = "600"
+
+# New databases use the single baseline; existing databases: ../DATABASE_SETUP.md.
+[[d1_databases]]
+binding = "MONITOR_DB"
+database_name = "support-monitor"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# Must match the support Worker's name. CloudflarePlan exposes plan metadata.
+[[services]]
+binding = "SUPPORT_PLAN"
+service = "telegram-private-chatbot"
+entrypoint = "CloudflarePlan"
+
+[[services]]
+binding = "SUPPORT_HEALTH"
+service = "telegram-private-chatbot"
+entrypoint = "SupportHealth"

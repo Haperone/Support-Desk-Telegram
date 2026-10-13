@@ -1,0 +1,92 @@
+name = "telegram-private-chatbot"
+main = "entry.js"
+compatibility_date = "2026-09-01"
+
+[observability]
+enabled = true
+
+# Non-secret configuration. Replace every REPLACE_* value before deployment.
+[vars]
+SUPPORT_GROUP_ID = "-1000000000000"
+ADMIN_IDS = "REPLACE_WITH_TELEGRAM_ADMIN_ID"
+# After creating the dedicated manager bot, set its public username here.
+# Keep MANAGER_BOT_TOKEN and MANAGER_WEBHOOK_SECRET in Wrangler secrets.
+MANAGER_BOT_USERNAME = "REPLACE_WITH_MANAGER_BOT_USERNAME"
+# Public origin used in one-time verification links. Keep TURNSTILE_SECRET_KEY in
+# `wrangler secret put`; the site key is intentionally public.
+PUBLIC_BASE_URL = "https://support.example.workers.dev"
+TURNSTILE_SITE_KEY = "REPLACE_WITH_TURNSTILE_SITE_KEY"
+TURNSTILE_EXPECTED_ACTION = "support_verify"
+TELEGRAM_TIMEOUT_MS = "10000"
+ALBUM_SETTLE_MS = "3000"
+# Default for webhook/verification, Cron and the linked monitor; General can override it.
+# Select "paid" only after upgrading the Cloudflare account to Workers Paid.
+RECOVERY_D1_PLAN = "free"
+# Initialize or upgrade SUPPORT_DB using DATABASE_SETUP.md before enabling these flags.
+TELEGRAM_COOLDOWN_ENABLED = "true"
+OPERATIONAL_HEALTH_ENABLED = "true"
+RETENTION_ENABLED = "true"
+# Keep the generation/reset fence on even when pausing retention features.
+STORAGE_GUARD_ENABLED = "true"
+# Apply migration 0029 and set BOT_REGISTRY_KEY before enabling Telegram onboarding.
+BOT_ONBOARDING_ENABLED = "true"
+# Paid subscription renewal day (1..31); can also be set in General when selecting Paid.
+# WORKERS_BILLING_DAY = "6"
+# Support bots are registered through the manager bot and stored in D1.
+BOT_REGISTRY = "[]"
+
+# Create the database first, replace the placeholder, then run:
+#   npx wrangler d1 migrations apply telegram-support --remote
+# Existing databases from before consolidation: follow DATABASE_SETUP.md first.
+[[d1_databases]]
+binding = "SUPPORT_DB"
+database_name = "telegram-support"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# These edge counters are deliberately separate from D1. The Worker key contains
+# bot_id:user_id. Namespace IDs must be unique positive integers in this account.
+[[ratelimits]]
+name = "ABUSE_BURST_LIMITER"
+namespace_id = "1001"
+simple = { limit = 8, period = 10 }
+
+[[ratelimits]]
+name = "ABUSE_MINUTE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 25, period = 60 }
+
+[[ratelimits]]
+name = "ABUSE_ABSOLUTE_LIMITER"
+namespace_id = "1003"
+simple = { limit = 100, period = 60 }
+
+[[ratelimits]]
+name = "VERIFY_LIMITER"
+namespace_id = "1004"
+simple = { limit = 10, period = 60 }
+
+[[ratelimits]]
+name = "REACTION_LIMITER"
+namespace_id = "1005"
+simple = { limit = 30, period = 60 }
+
+# Recovers interrupted album leases and prunes transient D1 state.
+[triggers]
+crons = ["*/5 * * * *"]
+
+# Attach after both Workers have their new named entrypoints deployed.
+[[services]]
+binding = "STORAGE_MONITOR"
+service = "telegram-support-usage-monitor"
+entrypoint = "StorageHealth"
+
+[[services]]
+binding = "USER_ACCESS_ALERTS"
+service = "telegram-support-usage-monitor"
+entrypoint = "UserAccessAlerts"
+
+[[services]]
+binding = "ALERT_SETTINGS"
+service = "telegram-support-usage-monitor"
+entrypoint = "AlertSettings"
